@@ -1,12 +1,11 @@
 public class Folha {
-    private int valor;
-    public Folha(int valor) {
+    private String palavra;
 
-       this.valor = valor;
-
+    public Folha(String palavra) {
+        this.palavra = palavra;
     }
 
-    public int getValor() {
-        return valor;
+    public String getPalavra() {
+        return palavra;
     }
 }

@@ -1,28 +1,39 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Arvore arvore = new Arvore (new Folha(30));
-        arvore.inserir(new Folha(15));
-        arvore.inserir(new Folha(45));
-        arvore.inserir(new Folha(25));
-        arvore.inserir(new Folha(16));
-
+        Arvore arvoreAVL = new Arvore();
 
         try {
-            List<String> line = Files.readAllLines(Paths.get("texto.txt"));
-            for (String lines : line) {
-                String[] palavras = lines.split(" ");
+            List<String> linhas = Files.readAllLines(Paths.get("teste_texto.txt"));
+            List<String> todasAsPalavras = new ArrayList<>();
 
-                //System.out.println(Arrays.toString(palavras));
-
+            for (String linha : linhas) {
+                String[] palavras = linha.split("\\s+"); 
+                for (String palavra : palavras) {
+                    if (!palavra.trim().isEmpty()) {
+                        todasAsPalavras.add(palavra);
+                    }
+                }
             }
+
+            System.out.println("Lidas " + todasAsPalavras.size() + " palavras no total.");
+            System.out.println("Inserindo na árvore AVL lendo a lista no sentido reverso...\n");
+
+            for (int i = todasAsPalavras.size() - 1; i >= 0; i--) {
+                String palavra = todasAsPalavras.get(i);
+                arvoreAVL.inserir(new Folha(palavra));
+            }
+
+            System.out.println("Inserção concluída. Palavras na árvore em ordem alfabética (sem duplicatas):");
+            arvoreAVL.imprimirEmOrdem();
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
     }
 }
