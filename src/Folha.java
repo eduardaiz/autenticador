@@ -1,5 +1,5 @@
 public class Folha {
-    private String palavra;
+    private final String palavra;
 
     public Folha(String palavra) {
         this.palavra = palavra;
